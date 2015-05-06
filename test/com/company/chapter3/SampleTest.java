@@ -52,4 +52,14 @@ public class SampleTest {
     public void testProc40() throws Exception {
         ut.proc40();
     }
+
+    @Test
+    public void testProc41() throws Exception {
+        ut.proc41();
+    }
+
+    @Test
+    public void testProc42() throws Exception {
+        ut.proc42();
+    }
 }

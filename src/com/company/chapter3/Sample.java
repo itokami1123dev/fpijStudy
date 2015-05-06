@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
@@ -12,8 +13,10 @@ import static java.util.Comparator.comparing;
 public class Sample {
     private final List<Hero> heros = Arrays.asList(
             new Hero("あくましょうぐん", 10000),
+            new Hero("あしゅらまん", 200),
             new Hero("ろびんますく", 100),
             new Hero("うぉーずまん", 100),
+            new Hero("うるふまん", 90),
             new Hero("ばっふぁろーまん", 1000)
     );
 
@@ -160,6 +163,22 @@ public class Sample {
     }
 
     public void proc41() {
-        title("Collectors");
+        title("collectを使って命令型から宣言型に");
+
+        List<Hero> power1000AndOver = heros.stream()
+                .filter(hero -> hero.getPower() >= 1000)
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+        power1000AndOver.forEach(System.out::println);
+    }
+
+    public void proc42(){
+        title("Collectorを使って短く書く");
+
+        List<Hero> power1000AndOver = heros.stream()
+                .filter(hero -> hero.getPower()>=1000)
+                .collect(Collectors.toList());
+
+        power1000AndOver.forEach(System.out::println);
     }
 }
