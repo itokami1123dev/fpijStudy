@@ -1,10 +1,16 @@
 package com.company.chapter3;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 
@@ -230,5 +236,40 @@ public class Sample {
                 ));
 
         saikyoInGroup.entrySet().forEach(System.out::println);
+    }
+
+    // 3.5 ディレクトリの全ファイルをリスト
+
+    public void proc51(){
+        title("ファイル一覧を外部イテレータで..");
+
+        File dir = new File(".");
+        String[] fileNames = dir.list();
+
+        for (String fileName:fileNames){
+            System.out.println("fileName="+fileName);
+        }
+    }
+
+    public void proc52(){
+        title("ファイル一覧をstreamで");
+
+        try(Stream<Path> stream = Files.list(Paths.get("."))){
+            stream.forEach(System.out::println);
+        }catch (IOException e){
+            System.out.println("error!");
+        }
+    }
+
+    public void proc53(){
+        title("ファイル一覧をstreamでFileのみを表示");
+
+        try(Stream<Path> stream = Files.list(Paths.get("."))){
+            stream
+                    .filter(Files::isRegularFile)
+                    .forEach(System.out::println);
+        }catch (IOException e){
+            System.out.println("error!");
+        }
     }
 }

@@ -88,4 +88,19 @@ public class SampleTest {
     public void testProc451() throws Exception {
         ut.proc451();
     }
+
+    @Test
+    public void testProc51() throws Exception {
+        ut.proc51();
+    }
+
+    @Test
+    public void testProc52() throws Exception {
+        ut.proc52();
+    }
+
+    @Test
+    public void testProc53() throws Exception {
+        ut.proc53();
+    }
 }
