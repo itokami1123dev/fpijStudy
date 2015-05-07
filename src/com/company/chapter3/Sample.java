@@ -1,9 +1,7 @@
 package com.company.chapter3;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -172,13 +170,65 @@ public class Sample {
         power1000AndOver.forEach(System.out::println);
     }
 
-    public void proc42(){
+    public void proc42() {
         title("Collectorを使って短く書く");
 
         List<Hero> power1000AndOver = heros.stream()
-                .filter(hero -> hero.getPower()>=1000)
+                .filter(hero -> hero.getPower() >= 1000)
                 .collect(Collectors.toList());
 
         power1000AndOver.forEach(System.out::println);
+    }
+
+    public void proc43() {
+        title("groupingByでパワー毎の集計");
+
+        Map<Integer, List<Hero>> powerGroup = heros.stream()
+                .collect(Collectors.groupingBy(Hero::getPower));
+
+        powerGroup.entrySet().forEach(System.out::println);
+        powerGroup.entrySet().forEach(entry -> System.out.println(entry));
+    }
+
+    public void proc44() {
+        title("groupingByでパワー毎の集計...名前だけ");
+
+        Map<Integer, List<String>> powerGroupNameList = heros.stream()
+                .collect(Collectors.groupingBy(Hero::getPower,
+                        Collectors.mapping(Hero::getName, Collectors.toList())));
+
+        powerGroupNameList.entrySet().forEach(System.out::println);
+    }
+
+    public void proc441() {
+        title("mappingのみを試した");
+
+        List<String> nameList = heros.stream()
+                .collect(Collectors.mapping(Hero::getName, Collectors.toList()));
+
+        nameList.forEach(System.out::println);
+    }
+
+    public void proc450() {
+        title("頭文字で最強の前にBinaryOperator.maxByのみ確認");
+
+        Optional<Hero> saikyo = heros.stream()
+                .reduce(BinaryOperator.maxBy(Hero::powerDiff));
+
+        saikyo.ifPresent(System.out::println);
+    }
+
+    public void proc451() {
+        title("頭文字の中で最強");
+
+        Map<String, Optional<Hero>> saikyoInGroup = heros.stream()
+                .collect(Collectors.groupingBy(
+                        hero -> hero.getName().substring(0, 1),
+                        Collectors.reducing(
+                                BinaryOperator.maxBy(Hero::powerDiff)
+                        )
+                ));
+
+        saikyoInGroup.entrySet().forEach(System.out::println);
     }
 }
