@@ -12,10 +12,9 @@ import static java.util.stream.Collectors.toList;
 
 public class Chap37_2flatMap {
     public static void main(String... args) throws IOException {
+        pTitle("37_2.一階層下まで一覧取得 flatMap");
 
         final String TEST_PATH = "src/com/company";
-
-        pTitle("37_2.一階層下まで一覧取得 flatMap");
         List<File> files =
                 Stream.of(new File(TEST_PATH).listFiles())
                         .flatMap(file ->
