@@ -12,11 +12,9 @@ import static java.util.stream.Collectors.toList;
 
 public class Chap38_1FileWatch {
     public static void main(String... args) throws IOException, InterruptedException {
-
-        final String TEST_PATH = "src/com/company";
-
         pTitle("38_1. WatchServiceでファイル変更を監視");
 
+        final String TEST_PATH = "src/com/company";
         final Path path = Paths.get(TEST_PATH);
 
         final WatchService watchService =
@@ -33,6 +31,8 @@ public class Chap38_1FileWatch {
                 1,
                 TimeUnit.MINUTES
         );
+
+        System.out.println("poll実行後....");
 
         if (watchKey != null) {
             watchKey.pollEvents()
