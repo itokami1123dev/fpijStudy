@@ -5,10 +5,11 @@ import static com.company.Util.pTitle;
 
 /**
  * 3.1 文字列のイテレーション
+ * 1. chars
  */
-public class Chap31 {
+public class Chap31_1_chars {
     public static void main(String ...args){
-        final String 文字列 = "あいうえお";
+        final String 文字列 = "abc";
 
         pTitle("ラムダ省略無");
         文字列.chars().forEach(
